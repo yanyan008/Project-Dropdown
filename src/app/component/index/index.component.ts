@@ -57,32 +57,52 @@ export class IndexComponent implements OnInit {
   }
 
   saveRecord() {
+    this.el = this.elementRef.nativeElement;
     const totalEstimate = Number(
       this.el.querySelector('#txtTotalEstimate').value
     );
     const items = this.el.querySelectorAll('.employee-item');
+    const task = this.el.querySelector('#txtTask').value;
     const employeeRecord = [];
     let ctr = 0;
+    let hasElementEmpty = false;
 
     for (const item of items) {
       const estimate = item.querySelector('.txtEstimate').value;
       const employee = item.querySelector('.employee').value;
       ctr += Number(estimate) || 0;
       employeeRecord.push({ employee, estimate });
+
+      if (this.isEmpty(estimate) || this.isEmpty(employee)) {
+        hasElementEmpty = true;
+      }
     }
 
-    if (totalEstimate === ctr) {
-      const payload = {
-        task: this.el.querySelector('#txtTask').value,
-        totalEstimate,
-        employeeRecord
-      };
+    if (
+      !this.isEmpty(task) &&
+      !this.isEmpty(totalEstimate) &&
+      !hasElementEmpty
+    ) {
+      if (totalEstimate === ctr) {
+        const payload = {
+          task,
+          totalEstimate,
+          employeeRecord,
+        };
 
-      //api for add record here
-      console.log(payload);
+        //api for add record here
+        console.log(payload);
+        alert("Add now the record!");
+      } else {
+        alert('Total estimates is not equal to the employee estimates');
+      }
     } else {
-      alert('Total estimates is not equal to the employee estimates');
+      alert('Fill up all the fields!');
     }
+  }
+
+  private isEmpty(txt: string | number) {
+    return txt === '';
   }
 
   private removeRow(e: MouseEvent) {
