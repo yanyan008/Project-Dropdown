@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="mb-3">
+    <div class="form-group">
+      <label for="txtTask">Task</label>
+      <input type="text" class="form-control" id="txtTask" placeholder="Enter estimate">
+    </div>
+  </div>
+  <div class="mb-3">
+    <div class="form-group">
+      <label for="txtTotalEstimate">Total Estimate</label>
+      <input type="number" class="form-control" id="txtTotalEstimate" placeholder="Enter Total Estimate">
+    </div>
+  </div>
+
+  <h5>Employee Estimations</h5>
+
+  <div id="employee-container">
+    <div class="d-flex align-items-center employee-item">
+      <div class="d-flex me-3">
+        <div class="form-group mb-2 me-3">
+          <label>Employee</label>
+          <select class="form-control employee">
+            <option value="" selected>-- Select --</option>
+            <option *ngFor="let employee of Employees" value="{{ employee }}">{{ employee }}</option>
+          </select>
+        </div>
+        <div class="form-group mb-2">
+          <label>Estimate</label>
+          <input type="number" class="form-control txtEstimate" placeholder="Enter estimate">
+        </div>
+      </div>
+      <div>
+        <button (click)="addRow()" type="button" class="btn btn-success mt-3">+</button>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="saveRecord()" type="button" class="btn btn-primary">Save</button>
+</div>
